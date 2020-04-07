@@ -1,2 +1,4 @@
 Django==2.2.12
 django-redis==4.11.0
+psycopg2==2.8.4
+psycopg2-binary==2.8.4

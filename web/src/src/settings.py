@@ -25,7 +25,7 @@ SECRET_KEY = '3652f=67@e-n1a$17e$4q8!zcbwgyn0@1wegvks&bpa5st4t^^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,9 +77,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': os.environ.get('DB_PATH'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -89,8 +92,12 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
+        "LOCATION": "redis://{host}:{port}/1".format(
+            host=os.environ.get('REDIS_HOST'),
+            port=os.environ.get('REDIS_PORT'),
+        ),
         "OPTIONS": {
+            "PASSWORD": os.environ.get('REDIS_PASSWORD'),
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }

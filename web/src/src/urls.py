@@ -21,5 +21,5 @@ from shortcut.views import Shortcut, GetShortcut
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shortcut/', Shortcut.as_view(), name='shortcut'),
-    path('<str:code>', GetShortcut.as_view(), name='getShortcut'),
+    path('s/<str:code>', GetShortcut.as_view(), name='getShortcut'),
 ]

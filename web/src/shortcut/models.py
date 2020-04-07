@@ -50,5 +50,5 @@ class Url(models.Model):
     @property
     def shortcut(self):
         instance = self
-        path = instance.host_code.addr_code + '-' + instance.path_code
+        path = 's/' + instance.host_code.addr_code + '-' + instance.path_code
         return path

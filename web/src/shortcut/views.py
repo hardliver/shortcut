@@ -31,7 +31,7 @@ class GetShortcut(View):
         try:
             host_code, path_code = code.split('-')
         except:
-            return Http404("Short address isn't existed")
+            raise Http404("Short address isn't existed")
         addr = cache.get(code)
         if not addr:
             addr = get_object_or_404(Url, path_code=path_code, host_code__addr_code=host_code).web_addr
