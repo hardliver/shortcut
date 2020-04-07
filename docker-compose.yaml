@@ -12,3 +12,5 @@ services:
       - ./volumes/db.sqlite3:/web/db.sqlite3
     environment:
       - DB_PATH=/web/db.sqlite3
+      - SUPERUSER=superuser
+      - SUPERUSERPASSWORD=superpassword
