@@ -14,3 +14,7 @@ services:
       - DB_PATH=/web/db.sqlite3
       - SUPERUSER=superuser
       - SUPERUSERPASSWORD=superpassword
+    depends_on:
+      - cache
+  cache:
+    image: redis
