@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from shortcut.views import Shortcut
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('shortcut/', Shortcut.as_view(), name='shortcut'),
 ]

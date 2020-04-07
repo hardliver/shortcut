@@ -25,17 +25,17 @@ class Host(models.Model):
 
 
 class Url(models.Model):
-    web_path = models.URLField(max_length=300, unique=True)
+    web_addr = models.URLField(max_length=300, unique=True)
     host_code = models.ForeignKey(Host, on_delete=models.CASCADE, blank=True)
     path_code = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return '{0}'.format(self.web_path)
+        return '{0}'.format(self.web_addr)
     def __unicode__(self):
-        return '{0}'.format(self.web_path)
+        return '{0}'.format(self.web_addr)
 
     def save(self, *args, **kwargs):
-        origin = urlparse(self.web_path)
+        origin = urlparse(self.web_addr)
         host_addr = origin.scheme + '://' + origin.hostname
         self.host_code, _ = Host.objects.get_or_create(host_addr=host_addr)
         length = 7
@@ -45,3 +45,9 @@ class Url(models.Model):
             length += 1
         self.path_code = path_code
         return super().save(*args, **kwargs)
+
+    @property
+    def shortcut(self):
+        instance = self
+        path = instance.host_code.addr_code + '-' + instance.path_code
+        return path

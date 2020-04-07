@@ -1,0 +1,18 @@
+<form action="/shortcut/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+{% if shortcut %}
+<script>
+    let url = window.location.href
+    let arr = url.split("/")
+    let shortcut = arr[0] + "//" + arr[2] + "/" + "{{ shortcut }}"
+    let a = document.createElement('a');
+    let linkText = document.createTextNode(shortcut);
+    a.appendChild(linkText);
+    a.href = shortcut;
+    document.body.appendChild(a);
+</script>
+{% endif %}
